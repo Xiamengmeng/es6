@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vuethird/node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- <div id="app"> 
+        <input type="text" v-model="msg">
+        {{msg}}
+    </div>
+   
+    <script>
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                msg:0
+            }
+        })
+    </script> -->
+
+
+     <!-- 双向绑定用到的就是v-model,一般用于文本框 -->
+    <!-- 原理：利用Object.defineProperty知道数据发生变化 -->
+
+    <input type="text" id="txt">
+
+    <script>
+        var onj={
+            name:"zs"
+        }
+
+        document.querySelector("#txt").oninput=function(){
+            onj.name=this.value;
+        }
+
+        Object.defineProperty(onj,"name",{
+            set:function(value){
+                this._name=value;
+                document.querySelector("#txt").value=this._name
+            },
+            get:function(){
+                return this._name;''
+            }
+        })
+
+    
+    </script>
+
+</body>
+</html>

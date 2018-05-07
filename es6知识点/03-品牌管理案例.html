@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div id="app">
+                <form class="form-horizontal">
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-2 control-label">请输入品牌名称</label>
+                          <div class="col-sm-10">
+                            <input v-model="brandName" type="text" class="form-control" id="inputEmail3" placeholder="品牌名称">
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                  <button type="submit" class="btn btn-default" @click="add">添加</button>
+                                </div>
+                        </div>
+                        <div class="form-group">
+            
+                                <div class="col-sm-10"> 
+                                  <input type="text" class="form-control" placeholder="搜索品牌名称" v-model="keyword">
+                                </div>
+                              </div>
+                              
+                      </form>
+                              <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Brand Name</th>
+                                        <th>Create Time</th>
+                                        <th>Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(i,index) in search()" :key="index">
+                                        <td>{{i.id}}</td>
+                                        <td>{{i.name}}</td>
+                                        <td>{{i.ctime}}</td>
+                                        <td><button @click="del(i.id)" class="btn btn-danger">删除</button></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                
+        </div>
+    <script src="../vuethird/node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                brandName: "",
+                brandsList: [
+                    { id: 0, name: "布加迪", ctime: new Date() },
+                    { id: 1, name: "比亚迪", ctime: new Date() },
+                    { id: 2, name: "帕加尼", ctime: new Date() },
+                    { id: 3, name: "迈巴赫", ctime: new Date() },
+                    { id: 4, name: "迈凯伦", ctime: new Date() },
+                ],
+                keyword:""
+            },
+            methods:{
+                // 添加功能
+
+                add(){
+                    // 因为brandsList是一个对象，所以要先创建一个对象出来给他添加到数组中
+                    var brand={
+                        id:this.brandsList.length>0?this.brandsList[this.brandsList.length-1].id+1:0,
+                        name:this.brandName,
+                        ctime:new Date()
+                    }
+                    // 先获取到input标签中的值
+                    this.brandsList.push(brand);
+                    this.brandName="";
+                    // return false;
+                    event.preventDefault();
+
+
+                },
+                // 删除功能
+                del(id){
+
+                    // 获取到id删除数组中的这个对象
+                    var brand=this.brandsList.find(function(v){
+                        return v.id==id;
+                    })
+                    console.log(brand);
+                    var index=this.brandsList.indexOf(brand);
+                    this.brandsList.splice(index,1);
+                },
+                // 搜索功能
+                search(){
+
+                    // 箭头函数会有自己独立的作用域，不会因为函数调用时改变this的指向
+                    // 每一个箭头函数都有自己的作用域和this
+                    // var result=this.brandsList.filter(v=>{
+                    //     return v.name.indexOf(this.keyword)!=-1;
+                    // })
+                    var that=this;
+                    var result=this.brandsList.filter(function(v){
+                        return v.name.indexOf(that.keyword)!=-1;
+                    })
+
+                    return result;
+
+                }
+
+            }
+        })
+
+
+        // form 表单自带表单提交刷新页面功能，如果想要阻止，
+        // 方法1：将button中的type="submit"改为type="button"
+        // 方法2：利用event.preventDefault()
+        // 方法3：将form去掉（可能会影响其他）
+        // 方法4：onclick事件的return false（返回值可能会有问题）
+        
+
+        // 该品牌管理案例一共有三个功能，添加，删除和搜索
+        // 1.添加功能时需要获取到表单中的值添加到数组中，
+        // （因为数组中的每一个值都是一个对象，所以在push到数组前，现将值放到对象中）
+        // 2.删除功能：需要获取到当前点击的id，然后根据当前id删除数组数据
+        // （在注册点击事件的时候讲id传进去，利用find()方法遍历数组，找到第一个满足条件的数据）
+        // find(function(v,i){
+            // del(id)del函数传进去的id和遍历数组中的id相同时返回此条数据，然后找到在数组中的下标
+            // 利用splice删除此条数据
+             // return v.id==id
+        // })
+
+        // 3.搜索功能：需要根据用户输入的值，查找数组返回符合条件的值
+        // 双向绑定，利用filter(function(v,i){}),找到所有满足条件的数据
+
+
+
+    </script>
+</body>
+</html>
