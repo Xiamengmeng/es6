@@ -1,0 +1,68 @@
+vue的生命周期是指一个vue实例，从创建到消亡的全过程
+在vue的生命周期中按照生命的进程可以划分为八个钩子函数
+create：beforecreate,created
+mount:beforemount,mounted
+update:beforeUpdate,updated
+destory:beforeDestory,destoryed
+
+
+自定义指令：当我们需要操作DOM的时候，可以用自定义指令来实现
+自定义指令一共包括5个钩子函数
+bind(el,binding){},当指令第一次被解析绑定到元素上是执行
+此时，dom元素还没有查到页面中
+inserted(el,binding){}
+update
+componentUpdated
+unbind
+
+注册指令有两种方式：
+全局注册（当前页面中的所有的vue实例都可以使用）
+Vue.directive(不带v的指令名，{
+    钩子函数
+})
+和局部注册（只用当前注册指令的vue实例可以使用）
+var vm=new Vue({
+    directive:{
+        不带v-指令名:{
+            钩子函数
+        }
+    }
+})
+
+watch：监视
+watch:{
+    要监视的数据名(){}
+}
+
+深度监视：为了知道哪个属性的数据发生改变
+watch:{
+    监听数据名：{
+        handler(newvalue,oldvalue){}
+    },
+    deep:true//深度监视
+    immediate:true//刚进入页面的时候，制动监视一次数据
+
+}
+
+
+vue中实现动画
+1.vue 中动画过渡可以利用在css中书写样式，
+动画的4个状态
+v-enter
+v-enter-to
+v-enter-active
+
+v-leave
+v-leave-to
+v-leave-active
+
+让某个元素实现过渡，给元素包一个transition，其中的name属性代表了类名的前缀，不写默认v-
+
+
+2.animate.css实现过渡
+
+引包，npm i animate.css -D
+
+<transition enter-active-class="animated swing" leave-active-class="animated rotateOut">
+     <div v-show="isShow"></div>    
+</transition>
