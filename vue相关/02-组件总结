@@ -1,0 +1,88 @@
+一、组件
+
+组件：是对功能的分装，它包含template,script和style
+组件的诉求是好用，有两种注册方式全局和局部
+1.全局
+
+组件之间是相互独立的，组建中使用的数据，都应该是组件自己提供的
+当我们需要用数据的时候，要给组件提供一个data函数，在函数中返回一个对象
+
+Vue.component("组件名",{
+    template:"<div>组件内容</div>",
+    data(){
+        return{}
+    }
+})
+
+2.局部
+var vm=new Vue({
+    el:"",
+    data:{
+
+    },
+    components:{
+        "组件名":{
+            template:"<h1>这是局部组件</h1>"
+        }
+    }
+
+})
+
+二、组件之间的通信
+
+（父-子是通过属性，子-父是通过事件，兄弟等是通过GlobalEventBus或vuex）
+1.父-子：
+在子组建中用props数组存储要传递给子组件的属性
+  Vue.component("son", {
+            template: "<div>这是子组件中获取到的number：{{numfromfather}}</div>",
+            props: ["numfromfather"]
+        })
+在子组件中 :属性="要传递的值"
+
+ <son :numfromfather="number"></son>
+
+2.子-父
+在父组件中定义一个函数名getMsg，在组件中注册一个事件，在子组件的事件中利用$emit触发事件
+
+<son @sendmsg="getMsgFromSon"></son>
+    Vue.component("son", {
+            template: "<div>这是子组件 <button @click='btnClick'>发送消息给父组件</button></div>",
+            data(){
+                return {
+                    msg: "这是子组件中的内容"
+                }
+            },
+            methods: {
+                btnClick(){
+                    this.$emit("sendmsg", "没钱了，打点钱。");
+                }
+            }
+        })
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+        },
+        methods: {
+            getMsgFromSon(info){
+                //这个函数会在，子组件绑定的事件sendMsg被触发的时候调用
+                cosole.log("儿子来信了: " + info);
+            }
+        }
+    })
+
+3.兄弟，爷孙等之间的通信
+ @1.global event bus
+先创建一个作为GlobalEventBus使用的对象
+var youju = new Vue();
+
+A传值给B
+给被传值得组件(B)定义一个函数：并且需要将自己定义的这个函数注册给邮局（$on）
+youju.$on("",this.函数名)
+然后在传值的组件(A)的事件中触发
+$youju.$emit("",info)
+ @2.vuex
+ vuex 是一个专门为vue.js应用程序开发的状态管理模式
+
+采用集中式存储所有组件的状态，并以响应的规则保证状态以一种可预测的方式发生变化
+vuex依赖于vue
