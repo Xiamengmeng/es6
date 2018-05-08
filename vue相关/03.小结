@@ -5,6 +5,12 @@ mount:beforemount,mounted
 update:beforeUpdate,updated
 destory:beforeDestory,destoryed
 
+钩子函数的意义
+1.注册钩子函数时，要和el,data同级
+2.钩子函数中的this都是指向vue实例
+3.钩子函数是为了让我们更加透彻的理解vue的生命周期
+
+
 
 自定义指令：当我们需要操作DOM的时候，可以用自定义指令来实现
 自定义指令一共包括5个钩子函数
