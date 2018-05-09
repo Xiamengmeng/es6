@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color:pink; 
+        }
+        .fade-enter,.fade-leave-to{
+            opacity: 0
+        }
+        .fade-enter-to,.fade-leave{
+            opacity: 1
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: all .5s linear;
+        }
+
+        .slide-enter{
+            margin-left: -300px;
+        }
+        .slide-enter-to,.slide-leave{
+            margin-left: 0;
+        }
+        .slide-leave-to{
+            margin-left: -300px;
+        }
+        .slide-enter-active,.slide-leave-active{
+            transition: all .5s linear;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="isShow = !isShow">切换显示1</button>
+        <transition name="fade">
+            <div class="box" v-show="isShow"></div>
+        </transition>
+
+        <button @click="isShow1 = !isShow1">切换显示2</button>
+        <transition name="slide">
+            <div class="box" v-show="isShow1"></div>
+        </transition>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                isShow1:true
+            }
+        })
+    </script>
+</body>
+</html>

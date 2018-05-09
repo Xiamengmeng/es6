@@ -1,0 +1,26 @@
+{
+  "name": "5.7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xiamengmeng/es6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xiamengmeng/es6/issues"
+  },
+  "homepage": "https://github.com/Xiamengmeng/es6#readme",
+  "devDependencies": {
+    "animate": "^1.0.0",
+    "animate.css": "^3.6.1",
+    "axios": "^0.18.0",
+    "vue": "^2.5.16"
+  }
+}

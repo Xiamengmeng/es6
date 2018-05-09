@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <!-- 子组件想要向父组件传值，通过事件的方式 -->
+        <son @sendmsg="get"></son>
+
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("son",{
+            template:"<div>{{msg}}<button @click='btn'>发送请求</button></div>",
+            data(){
+                return {
+                    msg:"这是子组件的内容"
+                }
+               
+            },
+            methods:{
+                    btn:function(){
+                        this.$emit("sendmsg","老爸，没钱了，打点钱救命")
+                    }
+                }
+        })
+
+        var vm=new Vue({
+            el:"#app",
+            data(){
+                return {
+                    msg:"这是父组件中的内容"
+                }
+                
+            },
+            methods:{
+              
+                get(info){
+                    console.log("儿子来信了："+info)
+                }
+
+
+            }
+        })
+    </script>
+</body>
+</html>

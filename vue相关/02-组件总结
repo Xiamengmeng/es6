@@ -86,3 +86,39 @@ $youju.$emit("",info)
 
 采用集中式存储所有组件的状态，并以响应的规则保证状态以一种可预测的方式发生变化
 vuex依赖于vue
+第一步，在vue环境下下载vuex(npm i vuex -D)
+引入：import vuex from "vuex"
+     import vue from "vue"
+     Vue.use(vuex)   (当vuex在模块化中使用时，必须要加上这句)
+
+第二步：创建一个store(只需提供一个初始state对象和mutation)
+const store=new vuex.Store({
+    state:{
+        count:0
+    },
+    mutations:{
+        increment(state){
+            state.count++
+        }
+    }
+})
+
+现在就可以使用store.state来获取状态对象，通过store.commit方法触发状态变更
+vuex 中强调用mutation 的方式来改变数据的状态，而不是直接通过store.state.count来改变
+
+vuex上有5个核心部分
+state:用来定义数据
+mutation:用来操作数据
+getter:计算属性
+action:类似于mutation 但是action提交的是mutation，而不是直接变更状态
+module(模块):为了防止单一状态树过多而导致store过于臃肿，vuex允许store划分为多个module，
+每一个module都包含自己的state,mutation,getter,action
+
+
+
+vuex怎么存储和拿数据
+this.$store.commit("")
+
+
+$store.state.count
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-myon:click.stop.prevent="btnClick">按钮</button>
+
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // v-on
+
+        // 自定义指令
+        Vue.directive("myon",{
+            bind(el,binding){
+                el.addEventListener(binding.arg,function(e){
+                    binding.value(e);
+                    if(binding.modifiers.stop){
+                        e.stopPropagation();
+                    }
+                    if(binding.modifiers.prevent){
+                        e.preventDefault();
+                    }
+                })
+            }
+        })
+        var vm=new Vue({
+            el:"#app",
+            data:{
+
+            },
+            methods:{
+                btnClick(){
+                    alert("被点击了")
+                }
+            }
+        })
+    </script>    
+</body>
+</html>
