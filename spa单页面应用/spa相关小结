@@ -1,0 +1,45 @@
+SPA：single page application 单页应用程序
+只有一个web页面的应用，是加载单个HTML页面，它只在首次加载页面，以后的每次请求都只是
+获取相关的data数据，然后由页面中JS解析获取的数据展示
+优点：1.减少请求体积，提高页面响应速度，降低对服务器的压力
+     2.提高用户体验
+
+缺点：不利于SEO     
+
+
+     主要技术点：
+     1.ajax
+     2.锚点的使用（window.location.hash#）
+     3.hashchange事件
+
+
+     思路：在hash值发生变化的时候改变页面内容
+     监听hash值变化
+     window.onhashchange=function(){
+
+     }
+
+     获取到hash值
+     location.hash
+
+
+路由
+通过？传递的参数在vue-router中获取：$route.query.id
+
+当组件被创建出来的时候，组件对象会新增一个属性$route
+
+$route属性中包含了所有和当前路由相关的信息
+
+path 路径信息
+hash hash值信息
+query ?传递的参数信息
+name  路由的名字
+params  路由参数
+
+
+1.如果要获取？传递的参数，我们可以用this.$route.query.id
+2.如果要获取路由参数，我们可以用this.$route.params.id
+
+
+路由参数：路由参数是指在我们指定路由规则的时候在路由路径中使用：进行占位的参数
+
